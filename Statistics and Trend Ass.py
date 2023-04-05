@@ -94,7 +94,7 @@ print('Kurtosis:',stats.kurtosis(co2_emi_T))
 
 co2_emi_T.plot(kind='bar',figsize=[10,4])
 plt.style.use('ggplot')
-plt.title('C02 Emission over the years', fontsize = 12, c='k',  fontname="Times New Roman Bold")
+plt.title('C02 Emission over the years', fontsize = 12, c='k')
 plt.xlabel('Country Name', c ='k')
 plt.ylabel('CO2 emissions (kt)', c ='k')
 plt.rcParams["figure.dpi"] = 300
@@ -119,9 +119,11 @@ print('Skewness:',stats.skew(pop_urban))
 print('Kurtosis:',stats.kurtosis(pop_urban))
 ('Pearsons:',pop_urban.corr())
 
-for country in pop_urban:
+#line plot
+#pop_urban.plot(kind = 'line')
+for country in pop_urban :
     pop_urban[country]
-    plt.plot(pop_urban.index.astype(int),pop_urban[country], label= country)
+    plt.plot(pop_urban.index.astype(int), pop_urban[country], label= country)
 
 # Add title, legend, and labels to plot
 plt.title('Trend in Urban Population from 1995 to 2014', fontsize = 11, c = 'k')
@@ -145,19 +147,19 @@ arable_df.index = pd.to_numeric(arable_df.index)
 arable_df
 
 """
-Plotting a scatter plot to show relationship for Co2 emmission and Forest Area for Brazil
+Plotting a scatter plot to show relationship forurban population and arable lands
 """
 
 plt.scatter(arable_df['Brazil'], pop_urban['Brazil'])
-plt.title('Relationship between Forest Area and Co2 emmission in Brazil')
-plt.xlabel('Forest area (% of land area)')
-plt.ylabel('Nations Co2 Emmision')
+plt.title('Relationship between Urban Population and arable land in Brazil', fontsize = 9, c= 'k')
+plt.xlabel('Arable land (% of land area)', c = 'k')
+plt.ylabel('Urban Population', c = 'k')
 
-plt.savefig('')
+plt.savefig('scatter_plot.png')
 plt.show()
 
 
-
+#Visualization 4: Heat map showing correlation between different China's climate change indicator
 china_df = indicator_T.loc[:,'China']
 china_df = china_df.set_axis(china_df.iloc[0], axis=1).iloc[1:]
 china_df.dropna(inplace= True)
