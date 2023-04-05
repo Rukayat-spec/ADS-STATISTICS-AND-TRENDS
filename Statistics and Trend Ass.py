@@ -159,7 +159,31 @@ plt.savefig('scatter_plot.png')
 plt.show()
 
 #Visualization 4: Heat map showing correlation between different China's climate change indicators
+china_df = indicator_T.loc[:,'China']
+china_df = china_df.set_axis(china_df.iloc[0], axis=1).iloc[1:]
+china_df.dropna(inplace= True)
+china_df = china_df.astype(float)  #conversion of the dataframe to a float
+china_df
 
+
+china_cor = china_df.corr().round(2)
+#plotting the heatmap and specifying the plot parameters
+plt.imshow(china_cor, cmap='Accent_r', interpolation='none')
+plt.style.use('default')
+plt.colorbar()
+plt.xticks(range(len(china_cor)), china_cor.columns, rotation=90)
+plt.yticks(range(len(china_cor)), china_cor.columns)
+plt.gcf().set_size_inches(8,5)
+
+
+#labelling of the little boxes and creation of a legend
+labels = china_cor.values
+for y in range(labels.shape[0]):
+    for x in range(labels.shape[1]):
+        plt.text(x,y, '{:.2f}'.format(labels[y,x]), ha='center', va='center',
+                  color='black')
+plt.title('Correlation Map for China')
+plt.savefig("Heat Map of China")
 
 #Visualization 5: Heat map showing correlation between different South Africa's climate change indicators
 SA_df = indicator_T.loc[:,'South Africa']
